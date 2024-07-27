@@ -1,4 +1,4 @@
-use std::{alloc::System, process};
+use std::process;
 
 fn main() {
     // Collect args
