@@ -1,33 +1,22 @@
-use std::process;
+use clap::Parser;
 
-fn main() {
-    // Collect args
-    let mut args: Vec<String> = std::env::args().collect();
-
-    // Remove executable path from args
-    args.remove(0);
-
-    // Iterate and check whether any of the args is the `--help` flag
-    if args.iter().any(|arg| arg == "--help") {
-        print_help();
-        process::exit(0);
-    }
-
-    // Join the args together into one string
-    let args_combined = args.join(" ");
-
-    // Echo the combined string back to the user
-    println!("{}", args_combined);
+#[derive(Parser, Debug)]
+#[command(version = "1.0", about = "The unix `echo` command rewritten in Rust")]
+struct Echo {
+    #[arg()]
+    args: Vec<String>,
 }
 
-fn print_help() {
-    println!(
-        r#"
-Hi, and welcome to rusty-echo!
+fn main() {
+    // Parse the command line arguments
+    let echo = Echo::parse();
 
-This is the unix `echo` command implemented in Rust for practice.
-As of now there is not much to do as there is no flags other
-than the `--help` flag.
-        "#
-    );
+    // Combine the arguments into a single string
+    let combined_args = echo.args.join(" ");
+
+    // Replace the escaped newline character with an actual newline
+    let processed_args = combined_args.replace("\\n", "\n");
+
+    // Print the processed arguments
+    println!("{}", processed_args);
 }
