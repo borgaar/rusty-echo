@@ -3,7 +3,6 @@ use clap::Parser;
 #[derive(Parser, Debug)]
 #[command(version = "1.0", about = "The unix `echo` command rewritten in Rust")]
 struct Echo {
-    #[arg()]
     args: Vec<String>,
 }
 
